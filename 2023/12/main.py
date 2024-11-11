@@ -92,10 +92,10 @@ def solve(springs, groups):
     total_permutations = 0
     for i in range(len(springs)):
         current_perm = count_permutations(springs[i], groups[i], 0)
-        print(current_perm, "\n")
+        print(current_perm, springs[i], "\n")
         total_permutations += current_perm
         if(i == 5):
-            print(total_permutations)
+            print(total_permutations, "at templete ex")
             total_permutations = 0
     return total_permutations
 
