@@ -1,26 +1,33 @@
 import numpy as np
+import os
 
 
 def read_input():
     lines = []
-    with open("input.txt", "r") as file:
+    print(os.getcwd)
+    with open("2023/12/input.txt", "r") as file:
         lines = file.readlines()
     springs =  []
     groups = []
 
     for line in lines:
         line = line.replace("\n", "")
-        springs.append(line.split(" ")[0])
+        sline = ""
         curren = []
-        for group in line.split(" ")[1].split(","):
-            curren.append(int(group))
+        for i in range(5):
+            sline += line.split(" ")[0]
+            sline += '?'
+            for group in line.split(" ")[1].split(","):
+                curren.append(int(group))
         groups.append(curren)
+        sline = sline[:-1]
+        springs.append(sline)
 
     return springs, groups
 
 
 def is_valid(spr, group):
-    print("validate: ", spr, str(group))
+    # print("validate: ", spr, str(group))
     running_count = 0
     curr_group = 0
     all_groups = np.zeros_like(group)
@@ -62,9 +69,9 @@ def count_permutations(spring_line, grouping, index):
     if index == len(spring_line):
         # print(spring_line, str(grouping))
         if is_valid(spring_line, grouping):
-            print("valid")
+            # print("valid")
             return 1
-        print("invalid")
+        # print("invalid")
         return 0
     count = 0
     if spring_line[index] == '?':
@@ -87,12 +94,15 @@ def solve(springs, groups):
         current_perm = count_permutations(springs[i], groups[i], 0)
         print(current_perm, "\n")
         total_permutations += current_perm
+        if(i == 5):
+            print(total_permutations)
+            total_permutations = 0
     return total_permutations
 
 def main():
     springs, groups = read_input()
     res = solve(springs, groups)
-    print("Final Result: ", res) #7307
+    print("Final Result: ", res) #7307 ex1
     pass
 
 
