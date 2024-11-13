@@ -7,7 +7,7 @@ NUMBER_OF_TIMES = 5
 def read_input():
     lines = []
     print(os.getcwd)
-    with open("2023/12/input_test.txt", "r") as file:
+    with open("2023/12/input.txt", "r") as file:
         lines = file.readlines()
     springs =  []
     groups = []
