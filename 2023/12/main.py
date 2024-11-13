@@ -1,7 +1,6 @@
 import numpy as np
 import os
 from numba import jit, njit, prange
-import time
 NUMBER_OF_TIMES = 5
 
 
@@ -167,10 +166,11 @@ def count_permutations_better(springs, grouping, index):
 def solve_better(springs, groups):
     total_permutations = 0
     for i in prange(len(springs)):
-        start = time.time()
+        
         current_perm = count_permutations_better(springs[i], groups[i], 0)
-        print(f"The {i} line in the file has {current_perm}\nCalculatet in {start-time.time()} seconds")
         total_permutations += current_perm
+        print(f"The {i} line in the file has {current_perm} permutations\n")
+
     return total_permutations
 
 
@@ -178,6 +178,7 @@ def solve_better(springs, groups):
 def main():
     springs, groups = read_input()
     # res = solve(springs, groups)
+    completed = 0
     res = solve_better(springs, groups)
     print("Final Result: ", res) #7307 ex1
     pass
