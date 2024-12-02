@@ -4,7 +4,7 @@ from numba import jit, njit, prange
 def getInput():
 
     input = []
-    with open("2024/2/input.txt", "r") as file:
+    with open("2024/2/test.txt", "r") as file:
         lines = file.readlines()
     
     for line in lines:
@@ -60,8 +60,7 @@ def checkDecreasing(line):
             return i
     return -1
 
-def solve2():
-    input = getInput()
+def solve2(input):
     valid = 0
     for line in input:
         indexInc = checkIncreasing(line)
@@ -69,13 +68,26 @@ def solve2():
         if indexInc == -1 or indexDec == -1:
             valid += 1
             continue
+        # print(np.concatenate((line[0:indexInc], line[indexInc + 1:])))
         if indexInc != -1 and -1 == checkIncreasing(np.concatenate((line[0:indexInc], line[indexInc + 1:]))):
+            valid += 1
+            continue
+        if indexInc != -1 and -1 == checkIncreasing(np.concatenate((line[0:indexInc + 1], line[indexInc + 2:]))):
             valid += 1
             continue
         if indexDec != -1 and -1 == checkDecreasing(np.concatenate((line[0:indexDec], line[indexDec + 1:]))):
             valid += 1
             continue
-
+        if indexDec != -1 and -1 == checkDecreasing(np.concatenate((line[0:indexDec + 1], line[indexDec + 2:]))):
+            valid += 1
+            continue
+        if -1 == checkIncreasing(line[1:]) or -1== checkDecreasing(line[1:]):
+            valid += 1
+            continue
+        if -1 == checkIncreasing(line[0:-1]) or -1== checkDecreasing(line[0:-1]):
+            valid += 1
+            continue
+        print(line)
     return valid
 
 
@@ -84,4 +96,7 @@ def solve2():
 
 if __name__ == "__main__":
     # print(solve1())
-    print(solve2())
+    input = getInput()
+
+    print(solve2(input))
+    
