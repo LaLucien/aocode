@@ -66,7 +66,7 @@ def solve2(input):
     the checkIncreasing and checkDecreasing check if it is a valid otion if not it returns the index of where wrong
     if valid -1
 
-    therefor one needs to check if one is twice, either the first element of the comparisons is the wrong one or the secend
+    therefore one needs to check if one is twice, either the first element of the comparisons is the wrong one or the secend
     only to check if not already ok
     """
     valid = 0
