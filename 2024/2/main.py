@@ -4,7 +4,7 @@ from numba import jit, njit, prange
 def getInput():
 
     input = []
-    with open("2024/2/test.txt", "r") as file:
+    with open("2024/2/input.txt", "r") as file:
         lines = file.readlines()
     
     for line in lines:
@@ -55,10 +55,10 @@ def checkIncreasing(line):
     
 def checkDecreasing(line):
     for i in range(len(line)-1):
-            if (line[i] < line[i+1])and correctMargin(line[i], line[i+1]):
+            if (line[i] > line[i+1]) and correctMargin(line[i], line[i+1]):
                 continue
             return i
-    return 0
+    return -1
 
 def solve2():
     input = getInput()
@@ -69,10 +69,10 @@ def solve2():
         if indexInc == -1 or indexDec == -1:
             valid += 1
             continue
-        if indexInc and -1 == checkIncreasing(np.concatenate((line[0:indexInc], line[indexInc + 1:]))):
+        if indexInc != -1 and -1 == checkIncreasing(np.concatenate((line[0:indexInc], line[indexInc + 1:]))):
             valid += 1
             continue
-        if indexDec and -1 == checkDecreasing(np.concatenate((line[0:indexDec], line[indexDec + 1:]))):
+        if indexDec != -1 and -1 == checkDecreasing(np.concatenate((line[0:indexDec], line[indexDec + 1:]))):
             valid += 1
             continue
 
