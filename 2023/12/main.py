@@ -180,7 +180,7 @@ def main():
     # res = solve(springs, groups)
     completed = 0
     res = solve_better(springs, groups)
-    print("Final Result: ", res) #7307 ex1
+    print("Final Result: ", res)
     pass
 
 

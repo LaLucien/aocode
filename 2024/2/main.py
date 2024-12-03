@@ -96,5 +96,5 @@ if __name__ == "__main__":
     input = getInput()
 
     print(solve2(input))
-    #612
+    
     
