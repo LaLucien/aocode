@@ -1,14 +1,11 @@
 import numpy as np
 
 def getInput():
-
-    
     with open("2024/4/input.txt", "r") as file:
         lines = file.readlines()
     
     input = []
     for line in lines:
-        # line = line.replace("\n", "")
         input.append(np.array([c for c in line if c.isalpha()], dtype=str))
     
     return np.array(input)
@@ -17,6 +14,7 @@ def getInput():
 
 def solve1(input):
     """really shitty but works"""
+
     xmasCount = 0
     linelengt = len(input[0])
     for i in range(len(input)):
@@ -80,25 +78,16 @@ def solve1(input):
 
 def solve2(input):
     xmasCount = 0
-    debug = np.zeros_like(input)
-
     linelengt = len(input[0])
     for i in range(1, len(input) -1):
         for j in range(1, linelengt-1):
-            # if (input[i-1,j-1] == 'M' and input[i-1, j+1] == 'S' and
-            #                     input[i,j] == 'A' and
-            #     input[i+1, j] == 'M' and input[i+1, j+1] == 'S'):
-            #     xmasCount += 1
             if input[i,j] != 'A':
                 continue
             if (((input[i-1,j-1] == 'M' and input[i+1, j+1] == 'S') or
                 (input[i-1,j-1] == 'S' and input[i+1, j+1] == 'M')) and
                 ((input[i+1,j-1] == 'M' and input[i-1, j+1] == 'S') or
                 (input[i+1,j-1] == 'S' and input[i-1, j+1] == 'M'))):
-                
                 xmasCount += 1
-
-
 
     return  xmasCount
 
@@ -106,9 +95,7 @@ def solve2(input):
 
 
 if __name__ == "__main__":
+
     input = getInput()
-
     print(solve1(input))
-       
-
     print(solve2(input))
