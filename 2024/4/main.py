@@ -18,8 +18,6 @@ def getInput():
 def solve1(input):
     """really shitty but works"""
     xmasCount = 0
-    debug = np.zeros_like(input)
-
     linelengt = len(input[0])
     for i in range(len(input)):
         for j in range(linelengt):
@@ -81,9 +79,28 @@ def solve1(input):
 
 
 def solve2(input):
-    
+    xmasCount = 0
+    debug = np.zeros_like(input)
 
-    return 
+    linelengt = len(input[0])
+    for i in range(1, len(input) -1):
+        for j in range(1, linelengt-1):
+            # if (input[i-1,j-1] == 'M' and input[i-1, j+1] == 'S' and
+            #                     input[i,j] == 'A' and
+            #     input[i+1, j] == 'M' and input[i+1, j+1] == 'S'):
+            #     xmasCount += 1
+            if input[i,j] != 'A':
+                continue
+            if (((input[i-1,j-1] == 'M' and input[i+1, j+1] == 'S') or
+                (input[i-1,j-1] == 'S' and input[i+1, j+1] == 'M')) and
+                ((input[i+1,j-1] == 'M' and input[i-1, j+1] == 'S') or
+                (input[i+1,j-1] == 'S' and input[i-1, j+1] == 'M'))):
+                
+                xmasCount += 1
+
+
+
+    return  xmasCount
 
 
 
