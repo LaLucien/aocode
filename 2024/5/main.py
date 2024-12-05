@@ -1,7 +1,7 @@
 import numpy as np
 
 DAY = 5
-FILE = "test.txt"
+FILE = "input.txt"
 
 def getInput():
     with open(f"2024/{DAY}/{FILE}", "r") as file:
@@ -19,7 +19,7 @@ def getInput():
         if secondPartReached:
             num = []
             for cnum in line.split(","):
-                num.append(cnum)
+                num.append(int(cnum))
             printingInput.append(np.array(num))
         else:
             left, right = int(line.split("|")[0]), int(line.split("|")[1])
@@ -29,11 +29,44 @@ def getInput():
                 beforeOrdering[left] = [right]
             
 
-    return beforeOrdering, printingInput
+    return (beforeOrdering, printingInput)
 
 def solve1(input):
+    ordering = input[0]
+    printing = input[1]
 
-    return 
+    validPrintsMiddleSum = 0
+    for print in printing:
+        alreadyPrinted = []
+        isValid = True
+        for i in range(len(print)):
+            currentPage = print[i]
+            # if not in ordering doesnt matter
+            if not (currentPage in ordering.keys()):
+                alreadyPrinted.append(currentPage)
+                continue
+            
+
+            for mustComeAfter in ordering[currentPage]:
+                if mustComeAfter in alreadyPrinted:
+                    isValid = False
+                    break
+
+            if not isValid:
+                break
+
+
+            # alreadyPrinted += ordering[currentPage]
+            alreadyPrinted.append(currentPage)
+        
+        if isValid:
+            validPrintsMiddleSum += print[int(len(print)/2)]
+
+            
+
+
+
+    return validPrintsMiddleSum
 
 
 
