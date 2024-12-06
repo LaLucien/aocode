@@ -1,7 +1,7 @@
 import numpy as np
 
 DAY = 6
-FILE = "test.txt"
+FILE = "input.txt"
 
 def getInput():
 
@@ -15,16 +15,37 @@ def getInput():
         for j in range(len(input[i])):
             if input[i,j] == "^" :
                  input[i,j] = "."
-                 
-                 return (input, (i,j))
+                 return (input, np.array([i,j]))
                 
 
     
     
 
 def solve1(input):
+    floor = input[0]
+    guardPosition = input[1]
+    visited = []
+    guardDirectionIndex = 0
+    guardDirections = (np.array([-1,0]),np.array([0,1]),np.array([1,0]),np.array([0,-1]))
+    
 
-    return 
+    while(True):
+        visited.append(guardPosition)
+        # outside check
+        if( np.any(np.less(guardPosition + guardDirections[guardDirectionIndex], np.array([0,0]))) or
+            np.any(np.greater(guardPosition + guardDirections[guardDirectionIndex], np.array([len(floor) -1, len(floor[0]) -1])))):
+            break
+        
+        # wall check
+        if(floor[np.add(guardPosition, guardDirections[guardDirectionIndex])[0], 
+                    np.add(guardPosition, guardDirections[guardDirectionIndex])[1]] == "#"):
+            guardDirectionIndex = (guardDirectionIndex + 1) % 4
+        else:
+            guardPosition = np.add(guardPosition, guardDirections[guardDirectionIndex])
+        
+        
+
+    return len(np.unique(visited, axis=0))
 
 
 
