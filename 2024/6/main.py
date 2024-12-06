@@ -1,7 +1,7 @@
 import numpy as np
 
 DAY = 6
-FILE = "test2.txt"
+FILE = "input.txt"
 
 def getInput():
 
@@ -57,7 +57,7 @@ def printFloor(floor):
 
 def solve2(input):
     defaultFloor = input[0]
-    guardPosition = input[1]
+    # guardPosition = input[1]
     initialGuartPosition = np.copy(input[1])
     # visited = []
     # guardDirectionIndex = 0
@@ -77,6 +77,7 @@ def solve2(input):
     
     for i in range(len(defaultFloor)):
         for j in range(len(defaultFloor[i])):
+            print(i,j)
             if np.all(np.equal(defaultFloor[i,j], np.array(["#","","","",""]))) or np.all(np.equal(initialGuartPosition, np.array([i,j]))):
                 continue
             floor = np.copy(defaultFloor)
@@ -84,26 +85,28 @@ def solve2(input):
             floor[i,j,0] = "#"
             # visited = []
             guardDirectionIndex = 0
-            initialGuartPosition = np.copy(input[1])
+            guardPosition = np.copy(initialGuartPosition)
 
-            print("new floor")
+            # print("new floor")
             # printFloor(floor)
             while(True):
                 # print("move")
                 # visited.append(guardPosition)
+                # print(floor[guardPosition[0], guardPosition[1]], guardDirections[guardDirectionIndex])
+
                 # outside check
-                if( np.any(np.less(guardPosition + guardDirections[guardDirectionIndex], np.array([0,0]))) or
-                    np.any(np.greater(guardPosition + guardDirections[guardDirectionIndex], np.array([len(floor) -1, len(floor[0]) -1])))):
+                if( np.any(np.less(np.add(guardPosition , guardDirections[guardDirectionIndex]), np.array([0,0]))) or
+                    np.any(np.equal(np.add(guardPosition , guardDirections[guardDirectionIndex]), np.array([len(floor), len(floor[0])])))):
+               
                     didntLeave = False
-                    print("moved out")
+                    # print("moved out")
                     break
                 # cycle check
                 if guardDirectionSymbol[guardDirectionIndex] in floor[guardPosition[0], guardPosition[1]]:
-                    print("found cycle")
+                    # print("found cycle")
                     break
-                else:
-                    floor[guardPosition[0], guardPosition[1],guardDirectionIndex + 1] = np.copy(guardDirectionSymbol[guardDirectionIndex])
-                    print(floor[guardPosition[0], guardPosition[1]])
+                
+                floor[guardPosition[0], guardPosition[1],guardDirectionIndex + 1] = guardDirectionSymbol[guardDirectionIndex]
                 
                 # wall check
                 if("#" in floor[np.add(guardPosition, guardDirections[guardDirectionIndex])[0], 
@@ -113,7 +116,7 @@ def solve2(input):
                     guardPosition = np.add(guardPosition, guardDirections[guardDirectionIndex])
                     
         
-            printFloor(floor)
+            # printFloor(floor)
             if didntLeave:
                 
                 possibleChanges += 1
