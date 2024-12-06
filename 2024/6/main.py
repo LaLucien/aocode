@@ -47,63 +47,39 @@ def solve1(input):
 
     return len(np.unique(visited, axis=0))
 
-def printFloor(floor):
-    for row in floor:
-        line = []
-        for tile in row:
-            line.append(np.array2string(tile))
-        print(line)
-        print("\n")
+
 
 def solve2(input):
+    """works but is slow ~15 min"""
     defaultFloor = input[0]
-    # guardPosition = input[1]
     initialGuartPosition = np.copy(input[1])
-    # visited = []
-    # guardDirectionIndex = 0
     guardDirections = (np.array([-1,0]),np.array([0,1]),np.array([1,0]),np.array([0,-1]))
     guardDirectionSymbol = ["u", "r", "d", "l"]
-
     possibleChanges = 0
-    
     defaultFloor = np.array([np.array([np.array([c,"","","",""], dtype=str) for c in row]) for row in defaultFloor])
-    # n2floor = []
-    # for row in defaultFloor:
-    #     n2row = []
-    #     for c in row:
-    #         n2row.append(np.array)
-
-
     
     for i in range(len(defaultFloor)):
+        print(f"Currently doing row {i}")
         for j in range(len(defaultFloor[i])):
-            print(i,j)
+
             if np.all(np.equal(defaultFloor[i,j], np.array(["#","","","",""]))) or np.all(np.equal(initialGuartPosition, np.array([i,j]))):
                 continue
+
             floor = np.copy(defaultFloor)
             didntLeave = True
             floor[i,j,0] = "#"
-            # visited = []
             guardDirectionIndex = 0
             guardPosition = np.copy(initialGuartPosition)
 
-            # print("new floor")
-            # printFloor(floor)
             while(True):
-                # print("move")
-                # visited.append(guardPosition)
-                # print(floor[guardPosition[0], guardPosition[1]], guardDirections[guardDirectionIndex])
-
-                # outside check
                 if( np.any(np.less(np.add(guardPosition , guardDirections[guardDirectionIndex]), np.array([0,0]))) or
                     np.any(np.equal(np.add(guardPosition , guardDirections[guardDirectionIndex]), np.array([len(floor), len(floor[0])])))):
                
                     didntLeave = False
-                    # print("moved out")
                     break
+
                 # cycle check
                 if guardDirectionSymbol[guardDirectionIndex] in floor[guardPosition[0], guardPosition[1]]:
-                    # print("found cycle")
                     break
                 
                 floor[guardPosition[0], guardPosition[1],guardDirectionIndex + 1] = guardDirectionSymbol[guardDirectionIndex]
@@ -118,7 +94,6 @@ def solve2(input):
         
             # printFloor(floor)
             if didntLeave:
-                
                 possibleChanges += 1
 
     return possibleChanges
