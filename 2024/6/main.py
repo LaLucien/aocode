@@ -1,7 +1,7 @@
 import numpy as np
 
 DAY = 6
-FILE = "input.txt"
+FILE = "test.txt"
 
 def getInput():
 
@@ -50,7 +50,47 @@ def solve1(input):
 
 
 def solve2(input):
+    defaultFloor = input[0]
+    guardPosition = input[1]
+    initialGuartPosition = np.copy(input[1])
+    visited = []
+    guardDirectionIndex = 0
+    guardDirections = (np.array([-1,0]),np.array([0,1]),np.array([1,0]),np.array([0,-1]))
+    guardDirectionSymbol = ["u", "r", "d", "l"]
 
+    possibleChanges = 0
+    
+    for i in range(len(defaultFloor)):
+        for j in range(len(defaultFloor[i])):
+            if defaultFloor[i,j] == "#" or np.equal(initialGuartPosition, np.array([i,j])):
+                continue
+            floor = np.copy(defaultFloor)
+            didntLeave = True
+            floor[i,j] = "#"
+
+            while(True):
+                visited.append(guardPosition)
+                # outside check
+                if( np.any(np.less(guardPosition + guardDirections[guardDirectionIndex], np.array([0,0]))) or
+                    np.any(np.greater(guardPosition + guardDirections[guardDirectionIndex], np.array([len(floor) -1, len(floor[0]) -1])))):
+                    didntLeave = False
+                    break
+                # cycle check
+                if guardDirectionSymbol[guardDirectionIndex] in floor[i,j]:
+                    break
+                else:
+                    floor[i,j] += guardDirectionSymbol[guardDirectionIndex]
+                # wall check
+                if(floor[np.add(guardPosition, guardDirections[guardDirectionIndex])[0], 
+                            np.add(guardPosition, guardDirections[guardDirectionIndex])[1]] == "#"):
+                    guardDirectionIndex = (guardDirectionIndex + 1) % 4
+                else:
+                    guardPosition = np.add(guardPosition, guardDirections[guardDirectionIndex])
+        
+            if didntLeave:
+                possibleChanges += 1
+
+    return possibleChanges
 
     return 
 
