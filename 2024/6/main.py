@@ -7,10 +7,20 @@ def getInput():
 
     
     with open(f"2024/{DAY}/{FILE}", "r") as file:
-        pass
+        input = np.array([np.array([c for c in line.strip()], dtype=str)  for line in file.readlines()])
 
 
-    return 
+    
+    for i in range(len(input)):
+        for j in range(len(input[i])):
+            if input[i,j] == "^" :
+                 input[i,j] = "."
+                 
+                 return (input, (i,j))
+                
+
+    
+    
 
 def solve1(input):
 
