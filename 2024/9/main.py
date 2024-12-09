@@ -1,7 +1,7 @@
 import numpy as np
 
 DAY = 9
-FILE = "input.txt"
+FILE = "test.txt"
 
 def getInput():
 
@@ -51,6 +51,16 @@ def solve1(input):
 
 
 def solve2(input):
+    blockFile = generate_blocks(input)
+
+    i = 0
+    j = len(blockFile) - 1
+    while(i < len(blockFile)):
+        # idea
+        # decreasej until not same number
+        # find space
+        # swap elements
+
 
 
     return 
