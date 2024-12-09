@@ -1,7 +1,7 @@
 import numpy as np
 
 DAY = 9
-FILE = "test.txt"
+FILE = "input.txt"
 
 def getInput():
 
@@ -74,15 +74,8 @@ def find_space_for(blockFile, sequenceLength):
 
 def solve2(input):
     blockFile = generate_blocks(input)
-
-    i = 0
-    # j = len(blockFile) - 1
     currentFile = int(max(blockFile)) + 1
     for j in range(len(blockFile) -1, -1, -1):
-        # idea
-        # decreasej until not same number
-        # find space
-        # swap elements
         if blockFile[j] == "." or int(blockFile[j]) >= currentFile:
             continue
         
@@ -92,12 +85,11 @@ def solve2(input):
         # no space anywere
         if spaceStartsAt < 0 or spaceStartsAt >= j:
             continue
+        #swaps
         for k in range(0, sequenceLength):
             blockFile[[spaceStartsAt + k, j - k]] = blockFile[[j - k, spaceStartsAt + k]]
-            print(blockFile)
 
         
-    print(blockFile)
     checksum = 0 
     for i, num in enumerate(blockFile):
         if num == ".":
